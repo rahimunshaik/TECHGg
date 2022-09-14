@@ -1,0 +1,155 @@
+1.Chief Election (100 Marks)-------------
+In the city of La La Land, the sports chief is to be elected. Mr. Jani, who himself is a great athlete, is standing for the position. It looks like a cake for him but it is not so. Throughout his career, he has been involved in many controversies and because of this the people are divided. To challenge him, Ms. Ramya has also submitted her application. She is a fierce lady with a great track record but is considered too strict with her discipline norms.
+
+
+There are multiple departments in the sports authority. On the election day, each department is provided with an integer. It also means multiple persons from the same department have the same integer. 
+
+
+Election Rules:
+
+Different persons belonging to the same department, have the same integer.
+
+Multiple votes with the same integer will be considered as a single unique vote.
+
+To win, Mr. Jani should have atleast M unique votes. If not, then, Ms. Ramya will be elected as the Chief Officer.
+
+
+Note: If there are 3 people belonging to one department having an integer 5 and they all vote, then it will be considered as a single unique vote.
+
+
+Now, on election day, N people have casted their vote. The votes are stored and are presented to you. The authority is asking you to declare the winner as per the rules. Declare the election results and name the new Chief Officer.
+
+
+Example:
+
+Number of people who casted their vote, N = 10
+
+Number of minimum votes required by Mr. Jani, M = 6
+
+
+The votes casted are given below,
+
+
+
+
+There are only 5 unique votes, 1, 2, 3, 4 and 5. Mr. Jani required minimum 6 unique votes to win so Ms. Ramya is the winner.
+
+
+
+
+Input Format
+The first line of input consists of number of test cases, T
+
+The first line of each test case consists of two space-separated integers, N and M.
+
+The second line of each test case consists of N space-separated integers.
+
+
+
+Constraints
+1<=T<100
+
+1<= N <=10000
+
+0<= M <=N
+
+1<= Ni <=10000
+
+
+
+
+Output Format
+For each test case, print JANI if Mr. Jani wins otherwise print RAMYA. The output is case sensitive.
+
+Sample TestCase 1
+Input
+2
+10 6
+1 2 1 4 1 1 3 1 1 5
+6 3
+1 2 3 4 2 1
+Output
+RAMYA
+JANI
+Explanation
+
+Test Case 1: As explained in the example.
+
+Test Case 2: Minimum unique votes required by Mr. Jani is 3. The number of unique votes casted is 4 (1, 2 3 and 4). The winner is Mr. Jani.
+Time Limit(X):
+0.50 sec(s) for each input.
+Memory Limit:
+512 MB
+Source Limit:
+100 KB
+Allowed Languages:
+C, C++, C++11, C++14, C#, Java, Java 8, Kotlin, PHP, PHP 7, Python, Python 3, Perl, Ruby, Node Js, Scala, Clojure, Haskell, Lua, Erlang, Swift, VBnet, Js, Objc, Pascal, Go, F#, D, Groovy, Tcl, Ocaml, Smalltalk, Cobol, Racket, Bash, GNU Octave, Rust, Common LISP, R, Julia, Fortran, Ada, Prolog, Icon, Elixir, CoffeeScript, Brainfuck, Pypy, Lolcode, Nim, Picolisp, Pike, pypy3
+
+/* Read input from STDIN. Print your output to STDOUT*/
+
+import java.io.*;
+import java.util.*;
+public class CandidateCode {
+   public static void main(String args[] ) throws Exception {
+
+	Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while (t > 0) {
+            int numberOfPeoples = sc.nextInt();
+            int requiredMinimumVotes = sc.nextInt();
+            Vote<Integer> vote = new Vote<>();
+            while (numberOfPeoples > 0) {
+                int v = sc.nextInt();
+                if (!vote.contains(v)) {
+                    vote.add(v);
+                }
+                --numberOfPeoples;
+            }
+            System.out.println(vote.size() >= requiredMinimumVotes ? "JANI" : "RAMYA");
+            --t;
+        }
+
+   }
+}
+
+class Vote<Integer> extends HashSet<Integer> {
+
+    @Override
+    public boolean contains(Object o) {
+        return super.contains(o);
+    }
+
+    @Override
+    public boolean add(Integer integer) {
+        return super.add(integer);
+    }
+}
+2.Carnival-------------------
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
+
+public class CandidateCode {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while (t > 0) {
+            int n = sc.nextInt();
+            int m = sc.nextInt();
+            ArrayList<Long> items = new ArrayList<>();
+            while (n > 0) {
+                items.add(sc.nextLong());
+                --n;
+            }
+            --t;
+            Collections.sort(items);
+            long leftSum = items.subList(0, m).stream().mapToLong(i -> i).sum();
+            long leftSum2 = items.subList(0, items.size() - m).stream().mapToLong(i -> i).sum();
+            long rightSum = items.subList(0, items.size()).stream().mapToLong(i -> i).sum() - leftSum;
+            long rightSum2 = items.subList(0, items.size()).stream().mapToLong(i -> i).sum() - leftSum2;
+            long result = Math.max(Math.abs(rightSum2 - leftSum2), Math.abs(rightSum - leftSum));
+            System.out.println(result);
+        }
+    }
+}
